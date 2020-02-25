@@ -14,7 +14,7 @@ public class Cart {
         cart = new ArrayList<Product>();
     }
 
-    
+
     /**
      * Calculates the final cost after all savings and tax has been applied. Also checks
      * that the user is of age to purchase alcohol if it is in their cart at checkout. Sales tax is always AZ tax.
@@ -74,7 +74,7 @@ public class Cart {
                 dairyCounter++;
 
             if (alcoholCounter >= 1 && frozenFoodCounter >= 1) {
-                 costAfterSavings = costAfterSavings + 3;
+                 costAfterSavings -= 3;
                  alcoholCounter--;
                  frozenFoodCounter--;
             }
