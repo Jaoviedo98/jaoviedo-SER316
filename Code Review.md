@@ -74,6 +74,12 @@ Problem Description: dairy counter increased if frozen food is bought
 Category: FD
 Severity: MJ
 
+ID#: 13
+Location: Cart.java, Line number 71
+Problem Description: Cost after savings is increased instead of being decreased when alcohol and frozen food is bought.
+Category: FD
+Severity: BR
+
 
 Category:        
 **CS** – Code Smell defect. 
