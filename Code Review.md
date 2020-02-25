@@ -63,10 +63,10 @@ Category: CS
 Severity: MJ
 
 ID#: 11
-Location: Cart.java, Line number 83
-Problem Description: Switch Statement is described as a code Smell
-Category: CS
-Severity: MJ
+Location: All Classes, 0
+Problem Description: No class Banners in any of the classes
+Category: CG
+Severity: LOW
 
 ID#: 12
 Location: Cart.java, Line number 67
