@@ -84,22 +84,23 @@ public class Cart {
     }
 
     // Gets the tax based on state and the total
-    public double getTax(double totalBT, String twoLetterUSStateAbbreviation) {
+    public double getTax(double totalBT, String StateTax) {
         double newTotal = 0;
-        switch (twoLetterUSStateAbbreviation) {
-            case "AZ":
-                newTotal = totalBT * .08;
-                break;
-            case "CA":
-                newTotal = totalBT * .09;
-                break;
-            case "NY":
-                newTotal = totalBT * .1;
-            case "CO":
-                newTotal = totalBT * .07;
-                break;
-            default:
-                return totalBT;
+        if(StateTax.equals("AZ"))
+        {
+            newTotal = totalBT * .08;
+        }
+        else if(StateTax.equals("CA"))
+        {
+            newTotal = totalBT * .09;
+        }
+        else if(StateTax.equals("NY"))
+        {
+            newTotal = totalBT * .1;
+        }
+        else  if(StateTax.equals("CO"))
+        {
+            newTotal = totalBT * .07;
         }
         return newTotal;
     }
