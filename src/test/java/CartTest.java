@@ -1,54 +1,16 @@
 package test.java;
-
 import main.java.*;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.Collection;
+import java.awt.*;
 
-import main.java.Cart;
-import main.java.Cart1;
-import main.java.Cart2;
-import main.java.Cart3;
-import main.java.Cart4;
-import main.java.Cart5;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
-
-@RunWith(Parameterized.class)
-public class BlackBoxGiven {
-
-    private Class<Cart> classUnderTest;
-
-    @SuppressWarnings("unchecked")
-    public BlackBoxGiven(Object classUnderTest) {
-        this.classUnderTest = (Class<Cart>) classUnderTest;
-    }
-
-    // Define all classes to be tested
-    @Parameterized.Parameters
-    public static Collection<Object[]> cartClassUnderTest() {
-        Object[][] classes = {
-            {Cart0.class},
-            {Cart1.class},
-            {Cart2.class},
-            {Cart3.class},
-            {Cart4.class},
-            {Cart5.class}
-        };
-        return Arrays.asList(classes);
-    }
-    
-    private Cart createCart(int age) throws Exception {
-        Constructor<Cart> constructor = classUnderTest.getConstructor(Integer.TYPE);
-        return constructor.newInstance(age);
-    }
-
-    // A sample Cart
-
+public class CartTest
+{
+    Cart cart;
     Cart cart1;
     Cart cart2;
     Cart cart3;
@@ -60,6 +22,11 @@ public class BlackBoxGiven {
     Cart cart9;
     Cart cart10;
     Cart cart11;
+    Cart cart13;
+    Cart cart14;
+    Cart cart15;
+    Cart cart16;
+
     double cart1Expected;
     double cart2Expected;
     double cart3Expected;
@@ -71,25 +38,41 @@ public class BlackBoxGiven {
     boolean cart9Expected;
     double cart10Expected; //Produce cart
     double cart11Expected;
-
-
-    @org.junit.Before
+    @Before
     public void setUp() throws Exception {
+        cart = new Cart(45);
+        cart1 = new Cart(40);
+        cart2 = new Cart(23);
+        cart3 = new Cart(23);
+        cart4 = new Cart(23);
+        cart5 = new Cart(23);
+        cart6 = new Cart(23);
+        cart7 = new Cart(50);
+        cart8 = new Cart(18);
+        cart9 = new Cart(21);
+        cart10 = new Cart(15);
+        cart11 = new Cart(1000);
 
-        // all carts should be set up like this
+        cart13 = new Cart(21);
+        cart14 = new Cart(20);
+        cart14.addItem(new Alcohol());
 
-        // cart created with an age 40 shopper
-        cart1 = createCart(40);
-        cart2 = createCart(23);
-        cart3 = createCart(23);
-        cart4 = createCart(23);
-        cart5 = createCart(23);
-        cart6 = createCart(23);
-        cart7 = createCart(50);
-        cart8 = createCart(18);
-        cart9 = createCart(21);
-        cart10 = createCart(15);
-        cart11 = createCart(1000);
+        cart15 = new Cart(25);
+        cart15.addItem(new Produce());
+        cart15.addItem(new Produce());
+        cart15.addItem(new Produce());
+        cart15.addItem(new Alcohol());
+        cart15.addItem(new FrozenFood());
+        cart15.addItem(new Dairy());
+
+        cart16 = new Cart(25);
+        cart16.addItem(new Produce());
+        cart16.addItem(new Produce());
+        cart16.addItem(new Produce());
+        cart16.addItem(new Alcohol());
+        cart16.addItem(new FrozenFood());
+        cart16.addItem(new Dairy());
+        cart16.addItem(new Meat());
 
         for (int i = 0; i < 2; i++) {
             cart1.addItem(new Alcohol());
@@ -136,7 +119,61 @@ public class BlackBoxGiven {
         cart11Expected = 159.84;
     }
 
-    // sample test
+    @After
+    public void tearDown() throws Exception {
+    }
+    @Test
+    public void getTaxNM()
+    {
+        assertEquals(0.0, cart.getTax(50, "NM"), .01);
+    }
+    @Test
+    public void getTaxAZ()
+    {
+        assertEquals(4.0, cart.getTax(50, "AZ"), .01);
+    }
+    @Test
+    public void getTaxCA()
+    {
+        assertEquals(4.5, cart.getTax(50, "CA"), .01);
+    }
+    @Test
+    public void getTaxNY()
+    {
+        assertEquals(5.0, cart.getTax(50, "NY"), .01);
+    }
+    @Test
+    public void getTaxCO()
+    {
+        assertEquals(3.5, cart.getTax(50, "CO"), .01);
+    }
+    @Test
+    public void EmptyCart() throws UnderAgeException
+    {
+        assertEquals(0.0, cart13.Amount_saved(), 0.1);
+    }
+    @Test
+    public void Full_Cart() throws UnderAgeException
+    {
+        assertEquals(4.0, cart15.Amount_saved(), 0.1);
+    }
+    @Test
+    public void Fuller_Cart() throws UnderAgeException
+    {
+        assertEquals(4.0, cart16.Amount_saved(), 0.1);
+    }
+    @Test
+    public void UnderageBuyer() throws UnderAgeException
+    {
+        boolean Ex = false;
+        try {
+            cart14.calcCost();
+        }
+        catch (UnderAgeException e) {
+            Ex = true;
+        }
+        assertEquals(true, Ex);
+    }
     @Test
     public void calcCostCart1() throws UnderAgeException {
         double amount = cart1.calcCost();
@@ -174,27 +211,27 @@ public class BlackBoxGiven {
     }
     @Test
     public void UnderAgeAlcoholic() throws UnderAgeException {
-            boolean Ex = false;
-            try {
-                cart8.calcCost();
-            }
-            catch (UnderAgeException e) {
-                Ex = true;
-            }
+        boolean Ex = false;
+        try {
+            cart8.calcCost();
+        }
+        catch (UnderAgeException e) {
+            Ex = true;
+        }
 
-            assertEquals(cart8Expected, Ex);
+        assertEquals(cart8Expected, Ex);
     }
     @Test
     public void LegalAlcoholic() throws UnderAgeException {
-            boolean Ex2 = true;
-            try {
-                cart9.calcCost();
-            }
-            catch (UnderAgeException e) {
-                Ex2 = false;
-            }
+        boolean Ex2 = true;
+        try {
+            cart9.calcCost();
+        }
+        catch (UnderAgeException e) {
+            Ex2 = false;
+        }
 
-            assertEquals(cart9Expected, Ex2);
+        assertEquals(cart9Expected, Ex2);
     }
     @Test
     public void ProduceKing() throws UnderAgeException {
@@ -206,4 +243,20 @@ public class BlackBoxGiven {
         double amount = cart11.calcCost();
         assertEquals(cart11Expected, amount, .01);
     }
+    @Test
+    public void RemoveAlcohol() throws UnderAgeException
+    {
+        Alcohol beer = new Alcohol();
+        cart13.addItem(beer);
+        Boolean removed = cart13.RemoveItem(beer);
+        assertEquals(true, removed);
+    }
+    @Test
+    public void RemoveAlcoholFake() throws UnderAgeException
+    {
+        Alcohol beer = new Alcohol();
+        Boolean removed = cart13.RemoveItem(beer);
+        assertEquals(false, removed);
+    }
+
 }
