@@ -21,6 +21,8 @@ dependencies {
     compile files('cls/')
 }
 
+
+
 ///////////////////////////////////////////////////////////////////////
 // Configure Checkstyle
 /////////////////////////////////////////////////////////////////////
@@ -52,3 +54,8 @@ dependencies {
  //     html.enabled = true
  //   }
  // }
+
+
+test {
+exclude '**/BlackBoxGiven.class'
+}
