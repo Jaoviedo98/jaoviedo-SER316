@@ -36,7 +36,7 @@ dependencies {
      html.enabled = true
      xml.enabled = false
     }
- }
+  }
  checkstyle {
      toolVersion = "8.8"
  }
