@@ -1,4 +1,5 @@
 package test.java;
+
 import main.java.*;
 import main.java.Cart;
 import main.java.UnderAgeException;
@@ -8,8 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class calcCostTest
-{
+public class CalcCostTest {
     Cart cart;
     Cart cart1;
     Cart cart2;
@@ -33,6 +33,7 @@ public class calcCostTest
     boolean cart9Expected;
     double cart10Expected; //Produce cart
     double cart11Expected;
+
     @Before
     public void setUp() throws Exception {
         cart = new Cart(45);
@@ -51,10 +52,10 @@ public class calcCostTest
         for (int i = 0; i < 2; i++) {
             cart1.addItem(new Alcohol());
         }
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             cart1.addItem(new Dairy());
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             cart1.addItem(new Meat());
         }
         cart2.addItem(new Meat());
@@ -70,10 +71,10 @@ public class calcCostTest
         cart8.addItem(new Alcohol());
         cart9.addItem(new Alcohol());
 
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             cart10.addItem(new Produce());
         }
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             cart11.addItem(new Produce());
             cart11.addItem(new Meat());
             cart11.addItem(new FrozenFood());
@@ -98,91 +99,99 @@ public class calcCostTest
     }
 
     @Test
-    public void getTaxAZ()
-    {
+    public void getTaxAz() {
         assertEquals(4.0, cart.getTax(50, "AZ"), .01);
     }
+
     @Test
-    public void getTaxCA()
-    {
+    public void getTaxCa() {
         assertEquals(4.5, cart.getTax(50, "CA"), .01);
     }
+
     @Test
-    public void getTaxNY()
-    {
+    public void getTaxNy() {
         assertEquals(5.0, cart.getTax(50, "NY"), .01);
     }
+
     @Test
-    public void getTaxCO()
-    {
+    public void getTaxCo() {
         assertEquals(3.5, cart.getTax(50, "CO"), .01);
     }
+
     @Test
     public void calcCostCart1() throws UnderAgeException {
         double amount = cart1.calcCost();
         assertEquals(cart1Expected, amount, .01);
     }
+
     @Test
     public void calcCostMeat() throws UnderAgeException {
         double amount = cart2.calcCost();
         assertEquals(cart2Expected, amount, .01);
     }
+
     @Test
     public void calcCostDairy() throws UnderAgeException {
         double amount = cart3.calcCost();
         assertEquals(cart3Expected, amount, .01);
     }
+
     @Test
     public void calcCostAlcohol() throws UnderAgeException {
         double amount = cart4.calcCost();
         assertEquals(cart4Expected, amount, .01);
     }
+
     @Test
     public void calcCostProduce() throws UnderAgeException {
         double amount = cart5.calcCost();
         assertEquals(cart5Expected, amount, .01);
     }
+
     @Test
     public void calcCostFrozenFood() throws UnderAgeException {
         double amount = cart6.calcCost();
         assertEquals(cart6Expected, amount, .01);
     }
+
     @Test
     public void calcCostAlcoholFrozenFoodCombo() throws UnderAgeException {
         double amount = cart7.calcCost();
         assertEquals(cart7Expected, amount, .01);
     }
+
     @Test
-    public void UnderAgeAlcoholic() throws UnderAgeException {
-        boolean Ex = false;
+    public void underAgeAlcoholic() throws UnderAgeException {
+        boolean ex = false;
         try {
             cart8.calcCost();
-        }
-        catch (UnderAgeException e) {
-            Ex = true;
+        } catch (UnderAgeException e) {
+            ex = true;
         }
 
-        assertEquals(cart8Expected, Ex);
+        assertEquals(cart8Expected, ex);
     }
+
     @Test
-    public void LegalAlcoholic() throws UnderAgeException {
-        boolean Ex2 = true;
+    public void legalAlcoholic() throws UnderAgeException {
+        boolean ex = true;
         try {
             cart9.calcCost();
-        }
-        catch (UnderAgeException e) {
-            Ex2 = false;
+        } catch (UnderAgeException e) {
+            ex = false;
         }
 
-        assertEquals(cart9Expected, Ex2);
+        assertEquals(cart9Expected, ex);
     }
+
     @Test
-    public void ProduceKing() throws UnderAgeException {
+    public void produceKing() throws UnderAgeException {
         double amount = cart10.calcCost();
         assertEquals(cart10Expected, amount, .01);
     }
+
     @Test
-    public void GroceryShopppingStudent() throws UnderAgeException {
+    public void groceryShopppingStudent() throws UnderAgeException {
         double amount = cart11.calcCost();
         assertEquals(cart11Expected, amount, .01);
     }
