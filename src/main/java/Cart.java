@@ -8,8 +8,6 @@ public class Cart {
 
     protected int userAge;
     public List<Product> cart;
-    public int cartStorage;
-
     /**
      * Calculates the final cost after all savings and tax has been applied. Also checks
      * that the user is of age to purchase alcohol if it is in their cart at checkout.
