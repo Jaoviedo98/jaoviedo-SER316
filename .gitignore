@@ -1,5 +1,9 @@
 # Compiled class file
+<<<<<<< HEAD
 
+=======
+*.class
+>>>>>>> Review
 # Log file
 *.log
 
