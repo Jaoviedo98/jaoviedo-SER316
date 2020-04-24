@@ -34,6 +34,8 @@ public class Cart {
      */
     public double calcCost() throws UnderAgeException {
         int subtotal = getSubtotal();
+        int amountSaved = amount_Saved();
+        subtotal -= amountSaved;
         return subtotal + getTax(subtotal, "AZ");
     }
 
@@ -47,12 +49,11 @@ public class Cart {
      *
      */
     public int amount_Saved() throws UnderAgeException {
-        int subTotal = getSubtotal();
         int produceCounter = getItemCount(Produce.class.toString());
         int alcoholCounter = getItemCount(Alcohol.class.toString());
         int frozenFoodCounter = getItemCount(FrozenFood.class.toString());
         int savings = getSavings(produceCounter, alcoholCounter, frozenFoodCounter);
-        return subTotal - savings;
+        return savings;
     }
 
     public int getSavings(int produce, int alcohol, int frozen) throws UnderAgeException {

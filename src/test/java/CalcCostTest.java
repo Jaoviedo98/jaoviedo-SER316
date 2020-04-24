@@ -187,6 +187,7 @@ public class CalcCostTest {
     @Test
     public void produceKing() throws UnderAgeException {
         double amount = cart10.calcCost();
+        System.out.println(amount);
         assertEquals(cart10Expected, amount, .01);
     }
 
