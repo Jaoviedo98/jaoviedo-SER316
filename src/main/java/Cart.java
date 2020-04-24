@@ -1,6 +1,7 @@
 package main.java;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import main.java.FrozenFood;
 
@@ -118,25 +119,14 @@ public class Cart {
 
     // Gets the tax based on state and the total
     public double getTax(double totalbt, String twoLetterStateAbbreviation) {
-        double newTotal = 0;
-        switch (twoLetterStateAbbreviation) {
-            case "AZ":
-                newTotal = totalbt * .08;
-                break;
-            case "CA":
-                newTotal = totalbt * .09;
-                break;
-            case "NY":
-                //SER316-Start had no break, added it in line to not mess up the numbering on graph
-                newTotal = totalbt * 0.1;
-                break;
-            case "CO":
-                newTotal = totalbt * .07;
-                break;
-            default:
-                return newTotal;//SER316-Start changed to return newTotal instead od TotalBT
-        }
-        return newTotal;
+        HashMap<String, Double> taxes = new HashMap<String, Double>();
+        taxes.put("AZ", 0.08);
+        taxes.put("CA", 0.09);
+        taxes.put("NY", 0.10);
+        taxes.put("CO", 0.07);
+        if(taxes.get(twoLetterStateAbbreviation) == null)
+            return 0.0;
+        return taxes.get(twoLetterStateAbbreviation) * totalbt;
     }
     
     public void addItem(Product np) {
